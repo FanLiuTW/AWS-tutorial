@@ -26,3 +26,35 @@
 
   - `aws ec2 describe-instances --profile <profile>`
     查詢 EC2 instance 清單（用來測試 EC2 權限是否允許）。
+
+# Terraform 指令（Lab3）
+
+  - `AWS_PROFILE=<profile> terraform init`
+    初始化 Terraform（下載 provider、初始化 backend）。
+
+  - `AWS_PROFILE=<profile> terraform plan -var="tfstate_bucket_name=tfstate-<account-id>-apne1"`
+    Bootstrap 的 plan（建立 remote backend 之前確認變更）。
+
+  - `AWS_PROFILE=<profile> terraform apply -var="tfstate_bucket_name=tfstate-<account-id>-apne1"`
+    Bootstrap 的 apply（建立 S3/DynamoDB）。
+
+  - `AWS_PROFILE=<profile> terraform plan`
+    環境 module 的 plan（確認變更）。
+
+  - `AWS_PROFILE=<profile> terraform apply`
+    套用資源建立或變更。
+
+  - `AWS_PROFILE=<profile> terraform output`
+    讀取 outputs（例如 public ip / ssh 指令）。
+
+  - `AWS_PROFILE=<profile> terraform state list`
+    查看目前 state 裡的資源列表。
+
+  - `AWS_PROFILE=<profile> terraform state show <address>`
+    查看指定資源在 state 裡的詳細資料。
+
+  - `AWS_PROFILE=<profile> terraform destroy -var="tfstate_bucket_name=tfstate-<account-id>-apne1"`
+    刪除 bootstrap 建立的 backend（S3/DynamoDB）。
+
+  - `AWS_PROFILE=<profile> terraform destroy`
+    刪除環境資源（EC2/SG/Key Pair）。
